@@ -1,31 +1,31 @@
-import { useState } from 'react'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import Header from "../Header/Header";
+import Preloader from "../Preloader/Preloader";
+import NotFound from "../NotFound/NotFound";
+import Main from "../Main/Main";
+import SavedMovies from "../SavedMovies/SavedMovies";
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [isLoading, setIsLoading] = useState(false);
+  
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {isLoading ? (
+        <Preloader />
+      ) : (
+        <div className="page">
+          <Header />
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/saved-movies" element={<SavedMovies />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
