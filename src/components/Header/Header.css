@@ -1,0 +1,36 @@
+@font-face {
+  font-family: BonaNova;
+  src: url("../../vendor/fonts/BonaNovaSC-Bold.ttf");
+}
+
+.header {
+  display: flex;
+  justify-content: space-around;
+  font-family: BonaNova;
+  font-weight: bold;
+  flex-wrap: wrap;
+  background: transparent;
+}
+
+.header__name-container {
+display: flex;
+align-items: center;
+}
+
+.header__logo {
+  width: 120px;
+  height: 100px;
+}
+
+.header__title {
+  line-height: 32px;
+  font-size: 28px;
+  font-weight: 700;
+  padding-left: 30pz;
+  text-align: center;
+}
+
+.header__nav {
+  display: flex;
+  gap: 10px;
+  }
