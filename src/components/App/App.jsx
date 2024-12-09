@@ -6,10 +6,11 @@ import Preloader from "../Preloader/Preloader";
 import NotFound from "../NotFound/NotFound";
 import Main from "../Main/Main";
 import SavedMovies from "../SavedMovies/SavedMovies";
+import Footer from "../Footer/Footer";
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
-  
+
   return (
     <>
       {isLoading ? (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/saved-movies" element={<SavedMovies />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <Footer />
         </div>
       )}
     </>

@@ -1,0 +1,11 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  position: relative;
+}
+
+.footer__github {
+  height: 28px;
+  width: 28px;
+}
