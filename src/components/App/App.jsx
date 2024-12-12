@@ -13,6 +13,7 @@ import LoginModal from "../LoginModal/LoginModal.jsx";
 import SignUpModal from "../SignUpModal/SignUpModal.jsx";
 import About from "../About/About.jsx";
 import MovieInfoPage from "../MovieInfoPage/MovieInfoPage.jsx";
+import CurrentUserContext from "../../contexts/CurrentUserContext.js";
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +26,7 @@ function App() {
     email: "",
     username: "",
     _id: "",
-  })
+  });
 
   // get default movies on page load
   useEffect(() => {

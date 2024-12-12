@@ -70,9 +70,9 @@
   display: block;
 }
 
-.movie__like-visible:hover {
+/* .movie__like-visible:hover {
   opacity: 30%;
-}
+} */
 
 @media screen and (max-width: 550px) {
   .card__img {
