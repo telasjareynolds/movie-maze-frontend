@@ -13,7 +13,8 @@ import LoginModal from "../LoginModal/LoginModal.jsx";
 import SignUpModal from "../SignUpModal/SignUpModal.jsx";
 import About from "../About/About.jsx";
 import MovieInfoPage from "../MovieInfoPage/MovieInfoPage.jsx";
-import CurrentUserContext from "../../contexts/CurrentUserContext.js";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
+import { signup, authorize, getUser } from "../../utils/auth.js";
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -57,6 +58,50 @@ function App() {
     };
   }, [modalActive]);
 
+  // Sign up
+  function handleSignUp(email, password, username) {
+    if (!email || !password || !username) {
+      console.log("Email, password, and username required");
+      return;
+    }
+    setIsLoading(true);
+
+    signup(email, password, username)
+      .then((data) => {
+        console.log(data);
+        setCurrentUser(data);
+        closeActivemodal();
+      })
+      .catch((err) => {
+        console.error("Error logging in:", err);
+      })
+      .finally(() => setIsLoading(false));
+  }
+
+  // Log in
+  function handleLogin(email, password) {
+    if (!email || !password) {
+      console.log("Email and password required");
+      return;
+    }
+    setIsLoading(true);
+
+    authorize(email, password, username)
+      .then((data) => {
+        console.log(data);
+        getUser(data.token)
+        .then((userData) => {
+          setIsLoggedIn(true);
+          setCurrentUser(userData);
+          closeActivemodal();
+        })
+      })
+      .catch((err) => {
+        console.error("Error logging in:", err);
+      })
+      .finally(() => setIsLoading(false));
+  }
+
   //handle search queries
   function searchMovies(query) {
     setIsLoading(true);
@@ -95,53 +140,60 @@ function App() {
   };
 
   return (
-    <>
-      {isLoading ? (
-        <Preloader />
-      ) : errorMessage ? (
-        <p className="page page__error-message">{errorMessage}</p>
-      ) : (
-        <div className="page">
-          <div className="page__overlay">
-            <Header onSearch={searchMovies} openSignInModal={openSignInModal} />
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <Main
-                    onSearch={searchMovies}
-                    movies={query.length > 0 ? query : defaultMovies}
-                    query={query}
-                  />
-                }
+    <CurrentUserContext.Provider value={currentUser}>
+      <>
+        {isLoading ? (
+          <Preloader />
+        ) : errorMessage ? (
+          <p className="page page__error-message">{errorMessage}</p>
+        ) : (
+          <div className="page">
+            <div className="page__overlay">
+              <Header
+                onSearch={searchMovies}
+                openSignInModal={openSignInModal}
               />
-              <Route
-                path="/movies/:imdbID"
-                element={<MovieInfoPage movies={movies} />}
-              />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-            <Routes>
-              <Route path="/saved-movies" element={<SavedMovies />} />
-              <Route path="/about" element={<About />} />
-            </Routes>
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <Main
+                      onSearch={searchMovies}
+                      movies={query.length > 0 ? query : defaultMovies}
+                      query={query}
+                    />
+                  }
+                />
+                <Route
+                  path="/movies/:imdbID"
+                  element={<MovieInfoPage movies={movies} />}
+                />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+              <Routes>
+                <Route path="/saved-movies" element={<SavedMovies />} />
+                <Route path="/about" element={<About />} />
+              </Routes>
+            </div>
           </div>
-        </div>
-      )}
-      <LoginModal
-        handleModalClose={closeActivemodal}
-        isOpen={modalActive === "login"}
-        buttonText={isLoading ? "Saving..." : "Log In"}
-        openSignUpModal={openSignUpModal}
-      />
-      <SignUpModal
-        handleModalClose={closeActivemodal}
-        isOpen={modalActive === "register"}
-        buttonText={isLoading ? "Saving..." : "Sign Up"}
-        openSignInModal={openSignInModal}
-      />
-      <Footer />
-    </>
+        )}
+        <LoginModal
+          handleModalClose={closeActivemodal}
+          isOpen={modalActive === "login"}
+          buttonText={isLoading ? "Saving..." : "Log In"}
+          openSignUpModal={openSignUpModal}
+          handleLogin={handleLogin}
+        />
+        <SignUpModal
+          handleModalClose={closeActivemodal}
+          isOpen={modalActive === "register"}
+          buttonText={isLoading ? "Saving..." : "Sign Up"}
+          openSignInModal={openSignInModal}
+          handleSignUp={handleSignUp}
+        />
+        <Footer />
+      </>
+    </CurrentUserContext.Provider>
   );
 }
 

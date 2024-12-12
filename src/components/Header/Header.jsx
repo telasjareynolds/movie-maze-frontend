@@ -5,6 +5,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import { Link } from "react-router-dom";
 
 function Header({ onSearch, openSignInModal }) {
+
   return (
     <div className="header">
       <div className="header__name-container">

@@ -5,17 +5,17 @@ import { useFormWithValidation } from "../../hooks/useFormWithValidation.js";
 
 function SignUpModal({
   handleModalClose,
-  handleRegistration,
   isOpen,
   buttonText,
   openSignInModal,
+  handleSignUp
 }) {
   // how to use the hook
   const { values, handleChange, errors } = useFormWithValidation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleRegistration(
+    handleSignUp(
       values.username,
       values.email,
       values.password
@@ -69,10 +69,10 @@ function SignUpModal({
           type="text"
           placeholder="Username"
           onChange={handleChange}
-          value={values.name}
+          value={values.username}
           minLength={2}
         />
-        {errors.name && <span className="modal__error">{errors.name}</span>}
+        {errors.username && <span className="modal__error">{errors.username}</span>}
       </label>
       <button
         type="button"

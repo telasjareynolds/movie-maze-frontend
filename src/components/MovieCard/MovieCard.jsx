@@ -19,28 +19,29 @@ function MovieCard({ onSearch, movies, movie }) {
   }
 
   return (
- <Link className="movie__link" to={`/movies/${movie.imdbID}`}>
-    <li className="movie">
-     
-      <img
-        src={movie.Poster}
-        alt={movie.Title}
-        className="movie__card-img"
-      />
-      <div className="movie__info-container">
-        
-        <p className="movie__name">
-          {movie.Title} ({movie.Year})
-        </p>
-      </div>
+    <div className="movie__container">
+      <Link className="movie__link" to={`/movies/${movie.imdbID}`}>
+        <li className="movie">
+          <img
+            src={movie.Poster}
+            alt={movie.Title}
+            className="movie__card-img"
+          />
+          <div className="movie__info-container">
+            <p className="movie__name">
+              {movie.Title} ({movie.Year})
+            </p>
+          </div>
+        </li>
+      </Link>
+
       <img
         src={isLiked ? liked_btn : unliked_btn} // Toggle like button image
         alt={isLiked ? "Liked" : "Not liked"}
         className="movie__like-btn"
         onClick={onCardLike}
       />
-    </li>
-   </Link>
+    </div>
   );
 }
 
