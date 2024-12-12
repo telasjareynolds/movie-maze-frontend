@@ -1,0 +1,50 @@
+.movie__container {
+  display: flex;
+  grid-gap: 20px;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 60px;
+}
+
+.movie__heading {
+  font-size: 40px;
+  line-height: 26.8px;
+  margin: 40px 0 34px;
+}
+
+.movie__list {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.movie__empty-message {
+  font-size: 40px;
+  color: red;
+  text-align: center;
+  margin-top: 100px;
+}
+
+@media screen and (max-width: 1200px) {
+  .movie__list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .movie__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .movie__list {
+    grid-template-columns: 1fr;
+  }
+
+  .movie {
+    max-width: fit-content;
+  }
+}

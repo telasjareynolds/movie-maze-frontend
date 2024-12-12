@@ -1,4 +1,4 @@
-.search {
+.search__form {
   display: flex;
   align-items: center;
   position: relative;
@@ -11,7 +11,7 @@
 .search__input {
   height: 40px;
   border-radius: 100px;
-  text-align: left; 
+  text-align: left;
   font-family: BonaNova, sans-serif;
   width: 100%;
   padding: 0 50px 0 15px;
@@ -28,7 +28,7 @@
   right: 10px;
   transform: translateY(-50%);
   height: 30px;
-  width: 40px; 
+  width: 40px;
   border-radius: 50%;
   border: none;
   background: none;
@@ -42,3 +42,15 @@
   font-family: BonaNova, sans-serif;
 }
 
+.search__btn:hover {
+  font-size: 20px;
+
+  color: red;
+}
+
+
+@media screen and (max-width: 550px) {
+  .search__form {
+    margin-left: 70px;
+  }
+}

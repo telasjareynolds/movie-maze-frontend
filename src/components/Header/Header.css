@@ -9,12 +9,14 @@
   font-family: BonaNova;
   font-weight: bold;
   flex-wrap: wrap;
-  background: transparent;
+  background: black;
+  margin-right: 20px;
+  min-width: fit-content;
 }
 
 .header__name-container {
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .header__logo {
@@ -23,8 +25,8 @@ align-items: center;
 }
 
 .header__title {
-  line-height: 32px;
-  font-size: 28px;
+  line-height: 37px;
+  font-size: 40px;
   font-weight: 700;
   padding-left: 30pz;
   text-align: center;
@@ -33,4 +35,17 @@ align-items: center;
 .header__nav {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media screen and (max-width: 550px) {
+  .header__title {
+    font-size: 20px;
   }
+
+  .header__logo {
+    width: 100px;
+    height: 80px;
+  }
+}

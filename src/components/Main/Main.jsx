@@ -1,12 +1,17 @@
 import "./Main.css";
+import MovieCardList from "../MovieCardList/MovieCardList";
 
-function Main() {
+
+function Main({ onSearch, movies, query }) {
+  // if user searches for results, show movieCardList, else, show default cards
+
   return (
-    <div className="main">
-      <h1>Main page</h1>
-    </div>
+    <main className="main">
+      <div className="main__overlay">
+        <MovieCardList movies={movies} query={query} onSearch={onSearch} />
+      </div>
+    </main>
   );
 }
 
 export default Main;
-

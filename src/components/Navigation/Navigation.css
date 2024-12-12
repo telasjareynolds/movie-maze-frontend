@@ -3,4 +3,39 @@
   align-items: center;
   gap: 10px;
   font-size: 18px;
+  flex-wrap: wrap;
+}
+
+.navigation__login {
+  text-wrap: nowrap;
+}
+
+.navigation__home {
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: 18px;
+  font-family: BonaNova;
+  font-weight: bold;
+}
+
+.navigation__login {
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: 18px;
+  font-family: BonaNova;
+  font-weight: bold;
+}
+
+.navigation__home:hover {
+  transform: translateY(-5px);
+  color: red;
+  font-size: 20px;
+}
+
+.navigation__login:hover {
+  transform: translateY(-5px);
+  color: red;
+  font-size: 20px;
 }

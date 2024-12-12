@@ -1,10 +1,13 @@
 import "./Navigation.css";
+import { Link } from "react-router-dom";
 
-function Navigation() {
+function Navigation({ openSignInModal}) {
   return (
     <div className="navigation">
-      <p>Home</p>
-      <p>Sign in</p>
+       <Link to="/">
+      <button className="navigation__home" type="button">Home</button>
+        </Link>
+      <button className="navigation__login" type="button" onClick={openSignInModal}>Sign in</button>
     </div>
   );
 }

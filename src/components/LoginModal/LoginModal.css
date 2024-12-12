@@ -1,0 +1,29 @@
+.modal__btn-signup {
+  margin: 16px 0 0;
+  background: #fff;
+  color: #2f71e5;
+  border: none;
+  padding: 8px 16px;
+  gap: 8px;
+  width: fit-content;
+  position: absolute;
+  bottom: 60px;
+  left: 218px;
+  padding: 0;
+}
+
+.modal__btn-signup:hover {
+  color: #2f72e58b;
+}
+
+@media screen and (max-width: 650px) {
+  .modal__btn-signup {
+    left: 210px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .modal__btn-signup {
+    left: 120px;
+  }
+}

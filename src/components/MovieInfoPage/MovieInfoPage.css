@@ -1,0 +1,51 @@
+.info {
+  display: flex;
+  justify-content: center;
+  margin: 100px;
+  flex-wrap: wrap;
+}
+
+.info__poster {
+  height: 60vh;
+  width: 45vh;
+  margin-right: 40px;
+}
+
+.info__list {
+  list-style-type: none;
+  text-align: start;
+  margin: 0;
+  padding: 0;
+  height: 60vh;
+  width: 45vh;
+}
+
+.info__list-item {
+  margin: 30px 0;
+  font-size: 24px;
+}
+
+.info__list-item:first-child {
+  margin-top: 0;
+}
+
+@media screen and (max-width: 900px) {
+.info { 
+  margin: 20px;
+}
+
+  .info__poster {
+    height: 40vh;
+    width: 30vh;
+  }
+
+  .info__list {
+    height: 40vh;
+    width: 30vh;
+    margin-top: 20px;
+  }
+
+  .info__list-item {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,35 @@
+.main {
+  background: url("../../assets/background.png") repeat,
+    radial-gradient(
+      circle at top center,
+      rgba(0, 0, 0, 0.375),
+      rgba(0, 0, 0, 1)
+    );
+  background-size: 400px 400px;
+  position: relative;
+  height: 100vh;
+  width: 100%;
+}
+
+.main__overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  min-width: fit-content;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.54);
+}
+
+/* @media screen and (max-width: 1500px) {
+  .main {
+    padding-bottom: 100px;
+  }
+} */
+
+@media screen and (max-width: 770px) {
+  .main {
+    padding-bottom: 1000px;
+  }
+} 

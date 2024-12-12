@@ -3,9 +3,34 @@
   justify-content: space-between;
   padding: 10px 20px;
   position: relative;
+  flex-wrap: wrap;
+  background: black;
 }
 
 .footer__github {
   height: 28px;
   width: 28px;
+}
+
+.footer__github:hover {
+  transform: translateY(-5px);
+  height: 32px;
+  width: 32px;
+}
+
+.footer__links {
+  display: flex;
+  align-items: center;
+}
+
+.footer__about-link {
+  padding-right: 10px;
+  text-decoration: none;
+  color: white;
+}
+
+.footer__about-link:hover {
+  transform: translateY(-5px);
+  color: red;
+  font-size: 20px;
 }

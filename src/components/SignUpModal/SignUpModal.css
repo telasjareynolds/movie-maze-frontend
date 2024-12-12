@@ -1,0 +1,31 @@
+.modal__btn-login {
+  margin: 16px 0 0;
+  background: #fff;
+  color: #2f71e5;
+  border: none;
+  padding: 8px 16px;
+  gap: 8px;
+  width: fit-content;
+  position: absolute;
+  bottom: 46px;
+  left: 220px;
+  padding: 0;
+}
+
+.modal__btn-login:hover {
+  color: #2f72e58b;
+}
+
+@media screen and (max-width: 650px) {
+  .modal__btn-login {
+    bottom: 35px;
+    left: 210px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .modal__btn-login {
+    bottom: 40px;
+    left: 125px;
+  }
+}

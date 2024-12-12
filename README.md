@@ -18,6 +18,9 @@ This repository contains the frontend for the Movie Maze website, the user-facin
 ## Backend Repository
 This project depends on the backend API for user authentication, movie data, and watchlist management. Find the backend repository here: https://github.com/telasjareynolds/movie-maze-backend/
 
+## Deployed Frontend
+   link: 
+
 ## Getting Started  
 
 ### Prerequisites  
@@ -31,3 +34,4 @@ This project depends on the backend API for user authentication, movie data, and
 bash  
    git clone https://github.com/telasjareynolds/movie-maze-frontend/  
    cd movie-maze-frontend
+
