@@ -54,7 +54,7 @@
   border-radius: 4px;
 }
 
-.movie__like-btn {
+.movie__save-btn {
   position: absolute;
   top: 15px;
   right: 15px;
@@ -66,15 +66,15 @@
   object-fit: cover;
 }
 
-.movie__like-hidden {
+.movie__save-hidden {
   display: none;
 }
 
-.movie__like-visible {
+.movie__save-visible {
   display: block;
 }
 
-/* .movie__like-visible:hover {
+/* .movie__Save-visible:hover {
   opacity: 30%;
 } */
 

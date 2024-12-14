@@ -14,7 +14,10 @@ import SignUpModal from "../SignUpModal/SignUpModal.jsx";
 import About from "../About/About.jsx";
 import MovieInfoPage from "../MovieInfoPage/MovieInfoPage.jsx";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
-import { signup, authorize, getUser } from "../../utils/auth.js";
+import { signup, authorize, getUser, logout } from "../../utils/auth.js";
+import SignUpSuccessfulModal from "../SignUpSuccessfulModal/SignUpSuccessfulModal.jsx";
+import SignOutModal from "../SignOutModal/SignOutModal.jsx";
+import ProtectedRoute from "../ProtectedRoute.jsx";
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,6 +31,7 @@ function App() {
     username: "",
     _id: "",
   });
+  const [savedMovies, setSavedMovies] = useState([]);
 
   // get default movies on page load
   useEffect(() => {
@@ -36,6 +40,7 @@ function App() {
       .getInitialMovies(defaultMovies)
       .then((data) => {
         setMovies(data);
+        console.log(setMovies);
       })
       .catch((err) => console.error(`Error fetching initial movies:`, err))
       .finally(setIsLoading(false));
@@ -71,6 +76,7 @@ function App() {
         console.log(data);
         setCurrentUser(data);
         closeActivemodal();
+        setModalActive("successful-registration");
       })
       .catch((err) => {
         console.error("Error logging in:", err);
@@ -89,17 +95,32 @@ function App() {
     authorize(email, password, username)
       .then((data) => {
         console.log(data);
-        getUser(data.token)
-        .then((userData) => {
+        getUser(data.token).then((userData) => {
           setIsLoggedIn(true);
           setCurrentUser(userData);
           closeActivemodal();
-        })
+        });
       })
       .catch((err) => {
         console.error("Error logging in:", err);
       })
       .finally(() => setIsLoading(false));
+  }
+
+  // Signout
+  function signOut() {
+    logout()
+      .then(() => {
+        setIsLoggedIn(false);
+        setCurrentUser({ email: "", username: "", _id: "" });
+        closeActivemodal();
+      })
+      .catch((err) => {
+        console.error("Error logging in:", err);
+      })
+      .finally(() => setIsLoading(false));
+
+    //remove token once backend build
   }
 
   //handle search queries
@@ -123,6 +144,30 @@ function App() {
       })
       .finally(setIsLoading(false));
   }
+  // handle Save movie functionality
+  function handleSaveMovie(movie) {
+    if (!movie.isSaved) {
+      api
+        .SaveMovie(movie)
+        .then(() => {
+          setMovies((movies) =>
+            movies.map((item) =>
+              item.imdbID === movie.imdbID ? { ...item, isSaved: true } : item
+            )
+          );
+
+          setSavedMovies((saved) => {
+            if (!saved.some((item) => item.imdbID === movie.imdbID)) {
+              return [...saved, { ...movies, isSaved: true }];
+            }
+            return saved;
+          });
+        })
+        .catch((err) => console.error(err));
+    } else {
+      console.log("Movie already saved");
+    }
+  }
 
   // Open modals
   const openSignUpModal = (e) => {
@@ -132,6 +177,11 @@ function App() {
   const openSignInModal = (e) => {
     e.preventDefault();
     setModalActive("login");
+  };
+
+  const openSignOutModal = (e) => {
+    e.preventDefault();
+    setModalActive("logout");
   };
 
   // close any modal
@@ -152,6 +202,7 @@ function App() {
               <Header
                 onSearch={searchMovies}
                 openSignInModal={openSignInModal}
+                openSignOutModal={openSignOutModal}
               />
               <Routes>
                 <Route
@@ -161,6 +212,7 @@ function App() {
                       onSearch={searchMovies}
                       movies={query.length > 0 ? query : defaultMovies}
                       query={query}
+                      handleSaveMovie={handleSaveMovie}
                     />
                   }
                 />
@@ -168,11 +220,20 @@ function App() {
                   path="/movies/:imdbID"
                   element={<MovieInfoPage movies={movies} />}
                 />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-              <Routes>
-                <Route path="/saved-movies" element={<SavedMovies />} />
+
+                <Route
+                  path="/Saved-movies"
+                  element={
+                    <ProtectedRoute
+                      isLoggedIn={isLoggedIn}
+                      // isLoggedInLoading={isLoggedInLoading}
+                    >
+                      <SavedMovies movies={savedMovies} />
+                    </ProtectedRoute>
+                  }
+                />
                 <Route path="/about" element={<About />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </div>
           </div>
@@ -191,6 +252,21 @@ function App() {
           openSignInModal={openSignInModal}
           handleSignUp={handleSignUp}
         />
+        <SignUpSuccessfulModal
+          title="Registration successfully completed!"
+          handleModalClose={closeActivemodal}
+          name="successful-register"
+          isOpen={modalActive === "successful-registration"}
+          openSignInModal={openSignInModal}
+        />
+        <SignOutModal
+          title="Would you like to log out?"
+          handleModalClose={closeActivemodal}
+          name="logout"
+          isOpen={modalActive === "logout"}
+          signOut={signOut}
+        />
+
         <Footer />
       </>
     </CurrentUserContext.Provider>

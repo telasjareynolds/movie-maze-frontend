@@ -39,3 +39,35 @@
   color: red;
   font-size: 20px;
 }
+
+.navigation__user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navigation__watchlist {
+  text-decoration: none;
+  color: white;
+}
+
+.navigation__watchlist:hover {
+  transform: translateY(-5px);
+  color: red;
+  font-size: 20px;
+}
+
+.navigation__username {
+  background: transparent;
+  color: white;
+  border: none;
+  font-family: BonaNova;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.navigation__username:hover {
+  transform: translateY(-5px);
+  color: red;
+  font-size: 20px;
+}

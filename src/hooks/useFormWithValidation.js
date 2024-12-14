@@ -2,12 +2,9 @@ import { useState, useCallback } from "react";
 
 export function useFormWithValidation() {
   const [values, setValues] = useState({
-    name: "",
-    imageUrl: "",
-    weather: "",
+    username: "",
     email: "",
     password: "",
-    avatarUrl: "",
   });
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
@@ -23,5 +20,11 @@ export function useFormWithValidation() {
     setIsValid(e.target.closest("form").checkValidity());
   }
 
-  return { values, setValues, handleChange, isValid, errors};
+  function resetForm(newValues = {}. newErrors = {}, newIsValid = false) {
+    setValues(newValues);
+    setErrors(newErrors);
+    setIsValid(newIsValid);
+  }
+
+  return { values, setValues, handleChange, isValid, errors, resetForm};
 }

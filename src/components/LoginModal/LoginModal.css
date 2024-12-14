@@ -10,11 +10,15 @@
   bottom: 60px;
   left: 218px;
   padding: 0;
+  font-family: BonaNova;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 .modal__btn-signup:hover {
   color: #2f72e58b;
 }
+
 
 @media screen and (max-width: 650px) {
   .modal__btn-signup {

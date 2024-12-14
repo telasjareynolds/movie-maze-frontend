@@ -8,18 +8,15 @@ function SignUpModal({
   isOpen,
   buttonText,
   openSignInModal,
-  handleSignUp
+  handleSignUp,
 }) {
   // how to use the hook
-  const { values, handleChange, errors } = useFormWithValidation();
+  const { values, handleChange, errors, resetForm } = useFormWithValidation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleSignUp(
-      values.username,
-      values.email,
-      values.password
-    );
+    handleSignUp(values.username, values.email, values.password);
+    resetForm();
   };
 
   return (
@@ -72,7 +69,9 @@ function SignUpModal({
           value={values.username}
           minLength={2}
         />
-        {errors.username && <span className="modal__error">{errors.username}</span>}
+        {errors.username && (
+          <span className="modal__error">{errors.username}</span>
+        )}
       </label>
       <button
         type="button"

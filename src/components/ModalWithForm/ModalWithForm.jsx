@@ -9,6 +9,7 @@ function ModalWithForm({
   isOpen,
   handleModalClose,
   onSubmit,
+  showSubmitButton = true,
 }) {
   function handleOverlayClick(e) {
     if (e.target.classList.contains("modal_opened")) {
@@ -36,13 +37,15 @@ function ModalWithForm({
           onSubmit={onSubmit}
         >
           {children}
-          <button
-            type="submit"
-            className="modal__submit-btn"
-            disabled={isValid}
-          >
-            {buttonText}
-          </button>
+          {showSubmitButton && (
+            <button
+              type="submit"
+              className="modal__submit-btn"
+              disabled={isValid}
+            >
+              {buttonText}
+            </button>
+          )}
         </form>
       </div>
     </div>

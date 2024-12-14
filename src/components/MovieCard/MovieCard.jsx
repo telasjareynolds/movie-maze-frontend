@@ -1,21 +1,22 @@
 import "./MovieCard.css";
-import liked_btn from "../../assets/liked_btn.svg";
-import unliked_btn from "../../assets/unliked_btn.svg";
+import saved_btn from "../../assets/saved_btn.svg";
+import unsaved_btn from "../../assets/unsaved_btn.svg";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-function MovieCard({ onSearch, movies, movie }) {
+function MovieCard({ movie, handleSaveMovie }) {
   // if user searches for results, show movieCardList, else, show default cards
 
-  const [isLiked, setIsLiked] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
 
-  // set card like on frontend until backend is built
-  function onCardLike(e) {
-    if (!isLiked) {
-      setIsLiked(true);
+  // set card Save on frontend until backend is built
+  function onCardSave() {
+    if (!isSaved) {
+      setIsSaved(true);
     } else {
-      setIsLiked(false);
+      setIsSaved(false);
     }
+    handleSaveMovie({ ...movie, isSaved });
   }
 
   return (
@@ -36,10 +37,10 @@ function MovieCard({ onSearch, movies, movie }) {
       </Link>
 
       <img
-        src={isLiked ? liked_btn : unliked_btn} // Toggle like button image
-        alt={isLiked ? "Liked" : "Not liked"}
-        className="movie__like-btn"
-        onClick={onCardLike}
+        src={isSaved ? saved_btn : unsaved_btn} // Toggle Save button image
+        alt={isSaved ? "saved" : "not saved"}
+        className="movie__save-btn"
+        onClick={onCardSave}
       />
     </div>
   );

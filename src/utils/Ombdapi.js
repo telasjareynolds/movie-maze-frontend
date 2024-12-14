@@ -37,8 +37,8 @@ export function searchMovies(searchTerm) {
 }
 
 // fictional backend api
-export function saveMovie(movie) {
-  return new Promise((resolve, reject) => {
+export function SaveMovie(movie) {
+  return new Promise((resolve) => {
     resolve({
       id: "12345",
       imdbID: movie.imbdID,

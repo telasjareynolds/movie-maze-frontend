@@ -1,0 +1,20 @@
+.signout-btn {
+  margin: 16px 0 0;
+  background: #fff;
+  color: #2f71e5;
+  border: none;
+  padding: 8px 16px;
+  gap: 8px;
+  width: fit-content;
+  position: absolute;
+  bottom: 46px;
+  left: 42px;
+  padding: 0;
+  font-family: BonaNova;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.signout-btn:hover {
+  color: #2f72e58b;
+}

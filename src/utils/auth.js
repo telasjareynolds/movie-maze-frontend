@@ -4,6 +4,12 @@ export const authorize = (email, password) => {
   });
 };
 
+export const logout = () => {
+  return new Promise((resolve, reject) => {
+    resolve({ token: "" });
+  });
+};
+
 export const signup = (email, password, username) => {
   return new Promise((resolve, reject) => {
     resolve({ token: "a fake token" });
