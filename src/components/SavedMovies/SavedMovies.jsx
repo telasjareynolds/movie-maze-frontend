@@ -10,9 +10,13 @@ function SavedMovies({}) {
 
   //fetch movie details of id
   useEffect(() => {
-    getWatchList().then((data) => {
-      setMovies(data);
-    });
+    getWatchList()
+      .then((data) => {
+        setMovies(data);
+      })
+      .catch((err) =>
+        console.error("There was an error getting watchlist:", err)
+      );
   }, []);
 
   return (

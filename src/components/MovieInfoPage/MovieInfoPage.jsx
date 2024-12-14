@@ -36,9 +36,16 @@ function MovieInfoPage({}) {
 
   //fetch movie details of id
   useEffect(() => {
-    fetchMovieDetailsByID(imdbID).then((data) => {
-      setMovie(data);
-    });
+    fetchMovieDetailsByID(imdbID)
+      .then((data) => {
+        setMovie(data);
+      })
+      .catch((err) =>
+        console.error(
+          "There was an error fetching movie by ID for details:",
+          err
+        )
+      );
   }, [imdbID]);
 
   return (
