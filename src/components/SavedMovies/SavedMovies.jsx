@@ -1,10 +1,19 @@
 import "./SavedMovies.css";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import MovieCard from "../MovieCard/MovieCard";
+import { getWatchList } from "../../utils/api";
 
-function SavedMovies({ movies }) {
+function SavedMovies({}) {
   const currentUser = useContext(CurrentUserContext);
+  const [movies, setMovies] = useState([]);
+
+  //fetch movie details of id
+  useEffect(() => {
+    getWatchList().then((data) => {
+      setMovies(data);
+    });
+  }, []);
 
   return (
     <section className="movies">

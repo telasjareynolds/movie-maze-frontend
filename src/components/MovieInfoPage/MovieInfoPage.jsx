@@ -1,18 +1,45 @@
 import "./MovieInfoPage.css";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchMovieDetailsByID } from "../../utils/Ombdapi";
 
-function MovieInfoPage({ movies }) {
+function MovieInfoPage({}) {
   const { imdbID } = useParams();
-  const movie = movies.find((m) => m.imdbID === imdbID);
+  //const movie = movies.find((m) => m.imdbID === imdbID);
+  const [movie, setMovie] = useState({
+    Actors: "",
+    Awards: "",
+    BoxOffice: "",
+    Country: "",
+    DVD: "",
+    Director: "",
+    Genre: "",
+    Language: "",
+    Metascore: "",
+    Plot: "",
+    Poster: "",
+    Production: "",
+    Rated: "",
+    Ratings: [],
+    Released: "",
+    Response: "",
+    Runtime: "",
+    Title: "",
+    Type: "",
+    Website: "",
+    Writer: "",
+    Year: "",
+    imdbID: "",
+    imdbRating: "",
+    imdbVotes: "",
+  });
 
   //fetch movie details of id
   useEffect(() => {
-    fetchMovieDetailsByID(imdbID);
+    fetchMovieDetailsByID(imdbID).then((data) => {
+      setMovie(data);
+    });
   }, [imdbID]);
-
-  console.log(movie);
 
   return (
     <section className="info">

@@ -19,6 +19,7 @@ import SignUpSuccessfulModal from "../SignUpSuccessfulModal/SignUpSuccessfulModa
 import SignOutModal from "../SignOutModal/SignOutModal.jsx";
 import ProtectedRoute from "../ProtectedRoute.jsx";
 
+
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [movies, setMovies] = useState([]);
@@ -40,11 +41,12 @@ function App() {
       .getInitialMovies(defaultMovies)
       .then((data) => {
         setMovies(data);
-        console.log(setMovies);
+  
       })
       .catch((err) => console.error(`Error fetching initial movies:`, err))
       .finally(setIsLoading(false));
   }, []);
+
 
   //Stop ESC listener if there are no active modals
   useEffect(() => {
@@ -73,7 +75,7 @@ function App() {
 
     signup(email, password, username)
       .then((data) => {
-        console.log(data);
+  
         setCurrentUser(data);
         closeActivemodal();
         setModalActive("successful-registration");
@@ -94,7 +96,7 @@ function App() {
 
     authorize(email, password, username)
       .then((data) => {
-        console.log(data);
+       
         getUser(data.token).then((userData) => {
           setIsLoggedIn(true);
           setCurrentUser(userData);
