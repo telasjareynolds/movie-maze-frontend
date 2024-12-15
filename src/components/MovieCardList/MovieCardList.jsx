@@ -4,14 +4,14 @@ import MovieCard from "../MovieCard/MovieCard";
 
 function MovieCardList({ movies, handleSaveMovie }) {
   return (
-    <section className="movie__container">
-      <h1 className="movie__heading">Fan Favorites</h1>
+    <section className="movies">
+      <h1 className="movies__heading">Fan Favorites</h1>
       {!movies || movies.length === 0 ? (
-        <p className="movie__empty-message">
+        <p className="movies__empty-message">
           No results found. Try a different search!
         </p>
       ) : (
-        <ul className="movie__list">
+        <ul className="movies__list">
           {movies.map((movie) => {
             return (
               <MovieCard

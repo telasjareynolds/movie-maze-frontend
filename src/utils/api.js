@@ -1,7 +1,19 @@
+export function checkResponse(res) {
+  if (res.ok) {
+    return res.json();
+  } else {
+    return Promise.reject(`Error:  ${res.status}`);
+  }
+}
+
+export function request(url, options) {
+  return fetch(url, options).then(checkResponse);
+}
+
 // fictional watchlist until backend is built
 //pretending that you're fetching to the database to get the movies saved in the watchlist
 export function getWatchList() {
-  return new Promise((resolve, reject) =>
+  return new Promise((resolve) =>
     resolve([
       {
         Title: "Transformers",

@@ -1,9 +1,9 @@
-import { baseUrl, request } from "./constants";
-import defaultMovies from "./defaultMovies";
+import { BASE_URL } from "./constants";
+import { request } from "./api";
 
 // Fetch details for a single movie by IMDb ID
 export function fetchMovieDetailsByID(imdbID) {
-  return request(`${baseUrl}&i=${imdbID}`);
+  return request(`${BASE_URL}&i=${imdbID}`);
 }
 
 // fetch home page movies
@@ -21,7 +21,7 @@ export function getInitialMovies(defaultMovies) {
 
 // search movies using searchbar
 export function searchMovies(searchTerm) {
-  return request(`${baseUrl}&s=${searchTerm}`, {
+  return request(`${BASE_URL}&s=${searchTerm}`, {
     method: "POST",
     // headers: {
     //   "Content-Type": "application/json",

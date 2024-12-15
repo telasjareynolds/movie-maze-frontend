@@ -4,7 +4,7 @@ import { useContext, useState, useEffect } from "react";
 import MovieCard from "../MovieCard/MovieCard";
 import { getWatchList } from "../../utils/api";
 
-function SavedMovies({}) {
+function SavedMovies({ handleSaveMovie }) {
   const currentUser = useContext(CurrentUserContext);
   const [movies, setMovies] = useState([]);
 
@@ -20,15 +20,20 @@ function SavedMovies({}) {
   }, []);
 
   return (
-    <section className="movies">
-      <h1 className="movie__heading">{currentUser.username}'s watchlist</h1>
+    <section className="watchlist">
+      <h2 className="watchlist__heading">{currentUser.username}'s watchlist</h2>
       {!movies || movies.length === 0 ? (
-        <p className="movie__empty-message">No saved movies yet!</p>
+        <p className="watchlist__empty-message">No saved movies yet!</p>
       ) : (
-        <ul className="movie__list">
+        <ul className="watchlist__list">
           {movies.map((movie) => {
             return (
-              <MovieCard key={movie.imdbID} movie={movie} movies={movies} />
+              <MovieCard
+                key={movie.imdbID}
+                movie={movie}
+                movies={movies}
+                handleSaveMovie={handleSaveMovie}
+              />
             );
           })}
         </ul>

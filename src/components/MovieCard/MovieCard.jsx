@@ -13,16 +13,16 @@ function MovieCard({ movie, handleSaveMovie }) {
   function onCardSave() {
     if (!isSaved) {
       setIsSaved(true);
+      handleSaveMovie({ ...movie, isSaved });
     } else {
       setIsSaved(false);
     }
-    handleSaveMovie({ ...movie, isSaved });
   }
 
   return (
-    <div className="movie__container">
+    <li className="movie">
       <Link className="movie__link" to={`/movies/${movie.imdbID}`}>
-        <li className="movie">
+        <div className="movie__container">
           <img
             src={movie.Poster}
             alt={movie.Title}
@@ -33,7 +33,7 @@ function MovieCard({ movie, handleSaveMovie }) {
               {movie.Title} ({movie.Year})
             </p>
           </div>
-        </li>
+        </div>
       </Link>
 
       <img
@@ -42,7 +42,7 @@ function MovieCard({ movie, handleSaveMovie }) {
         className="movie__save-btn"
         onClick={onCardSave}
       />
-    </div>
+    </li>
   );
 }
 

@@ -19,7 +19,6 @@ import SignUpSuccessfulModal from "../SignUpSuccessfulModal/SignUpSuccessfulModa
 import SignOutModal from "../SignOutModal/SignOutModal.jsx";
 import ProtectedRoute from "../ProtectedRoute.jsx";
 
-
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [movies, setMovies] = useState([]);
@@ -41,12 +40,10 @@ function App() {
       .getInitialMovies(defaultMovies)
       .then((data) => {
         setMovies(data);
-  
       })
       .catch((err) => console.error(`Error fetching initial movies:`, err))
       .finally(setIsLoading(false));
   }, []);
-
 
   //Stop ESC listener if there are no active modals
   useEffect(() => {
@@ -75,7 +72,6 @@ function App() {
 
     signup(email, password, username)
       .then((data) => {
-  
         setCurrentUser(data);
         closeActivemodal();
         setModalActive("successful-registration");
@@ -94,9 +90,8 @@ function App() {
     }
     setIsLoading(true);
 
-    authorize(email, password, username)
+    authorize(email, password)
       .then((data) => {
-       
         getUser(data.token).then((userData) => {
           setIsLoggedIn(true);
           setCurrentUser(userData);
@@ -197,10 +192,9 @@ function App() {
         {isLoading ? (
           <Preloader />
         ) : errorMessage ? (
-          <p className="page page__error-message">{errorMessage}</p>
+          <p className="page__error-message">{errorMessage}</p>
         ) : (
           <div className="page">
-            <div className="page__overlay">
               <Header
                 onSearch={searchMovies}
                 openSignInModal={openSignInModal}
@@ -230,15 +224,16 @@ function App() {
                       isLoggedIn={isLoggedIn}
                       // isLoggedInLoading={isLoggedInLoading}
                     >
-                      <SavedMovies movies={savedMovies} />
+                      <SavedMovies movies={savedMovies} handleSaveMovie={handleSaveMovie} />
                     </ProtectedRoute>
                   }
                 />
                 <Route path="/about" element={<About />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
+              <Footer />
             </div>
-          </div>
+         
         )}
         <LoginModal
           handleModalClose={closeActivemodal}
@@ -268,8 +263,6 @@ function App() {
           isOpen={modalActive === "logout"}
           signOut={signOut}
         />
-
-        <Footer />
       </>
     </CurrentUserContext.Provider>
   );

@@ -1,0 +1,62 @@
+.watchlist {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.watchlist__heading {
+  font-size: 40px;
+  line-height: 26.8px;
+  margin: 40px 0 34px;
+  width: 100%;
+  max-width: fit-content;
+}
+
+.watchlist__empty-message {
+  font-size: 40px;
+  color: red;
+  text-align: center;
+  margin-top: 100px;
+}
+
+.watchlist__list {
+  display: grid;
+  grid-gap: 13px;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 0;
+  margin: 30px 30px 50px;
+  list-style-type: none;
+}
+
+@media screen and (max-width: 1200px) {
+  .watchlist__list {
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0 0 30px;
+    grid-gap: 10px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .watchlist__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .watchlist__list {
+    grid-template-columns: 260px;
+    padding: 0;
+  }
+
+  .watchlist {
+    min-width: fit-content;
+    width: 100%;
+    padding: 0;
+  }
+
+  .watchlist__heading {
+    padding: 0 20px;
+  }
+}

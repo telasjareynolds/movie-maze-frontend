@@ -1,14 +1,16 @@
 .info {
   display: flex;
   justify-content: center;
-  margin: 100px;
-  flex-wrap: wrap;
+  gap: 20px;
+  height: 100%;
+  padding: 0 20px;
+  background-color: rgba(0, 0, 0, 0.666);
 }
 
 .info__poster {
   height: 60vh;
   width: 45vh;
-  margin-right: 40px;
+  margin: 100px 20px 100px 50px;
 }
 
 .info__list {
@@ -16,8 +18,7 @@
   text-align: start;
   margin: 0;
   padding: 0;
-  height: 60vh;
-  width: 45vh;
+  margin: 100px;
 }
 
 .info__list-item {
@@ -29,23 +30,30 @@
   margin-top: 0;
 }
 
-@media screen and (max-width: 900px) {
-.info { 
-  margin: 20px;
+@media screen and (max-width: 1024px) {
+  .info {
+    flex-wrap: wrap;
+  }
+
+  .info__poster {
+    margin: 20px 0 0;
+  }
+
+  .info__list {
+    margin: 0;
+   }
+
 }
+
+@media screen and (max-width: 900px) {
 
   .info__poster {
     height: 40vh;
     width: 30vh;
   }
 
-  .info__list {
-    height: 40vh;
-    width: 30vh;
-    margin-top: 20px;
-  }
-
   .info__list-item {
     font-size: 14px;
+    margin: 20px 0;
   }
 }

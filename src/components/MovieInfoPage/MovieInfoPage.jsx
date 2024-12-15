@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchMovieDetailsByID } from "../../utils/Ombdapi";
 
-function MovieInfoPage({}) {
+function MovieInfoPage() {
   const { imdbID } = useParams();
   //const movie = movies.find((m) => m.imdbID === imdbID);
   const [movie, setMovie] = useState({

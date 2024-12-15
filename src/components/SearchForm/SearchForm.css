@@ -1,14 +1,14 @@
-.search__form {
+.search-form {
   display: flex;
   align-items: center;
   position: relative;
   width: 100%;
   max-width: fit-content;
-  margin: 0 auto;
   flex-wrap: wrap;
+  margin: 0;
 }
 
-.search__input {
+.search-form__input {
   height: 40px;
   border-radius: 100px;
   text-align: left;
@@ -22,7 +22,7 @@
   box-sizing: border-box;
 }
 
-.search__btn {
+.search-form__btn {
   position: absolute;
   top: 50%;
   right: 10px;
@@ -42,15 +42,8 @@
   font-family: BonaNova, sans-serif;
 }
 
-.search__btn:hover {
+.search-form__btn:hover {
   font-size: 20px;
 
   color: red;
-}
-
-
-@media screen and (max-width: 550px) {
-  .search__form {
-    margin-left: 70px;
-  }
 }

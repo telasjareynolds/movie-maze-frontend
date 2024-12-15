@@ -1,18 +1,18 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  color: #fff; 
+  color: #fff;
 }
- 
+
 .page__error-message {
   font-size: 40px;
   color: red;
   text-align: center;
   margin-top: 100px;
-
 }
 
 .page {
@@ -24,46 +24,8 @@ html, body {
     );
   background-size: 400px 400px;
   position: relative;
-  height: 100vh;
   width: 100%;
-  padding-bottom: 700px;
   text-align: center;
   margin: 0;
   font-family: BonaNova, sans-serif;
 }
-
-.page__overlay {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  height: 100%;
-  width: 100%;
-  min-width: fit-content;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.54);
-}
-
-@media screen and (max-width: 1500px) {
-  .page {
-    padding-bottom: 200px;
-  }
-}
-
-@media screen and (max-width: 1200px) {
-  .page {
-    padding-bottom: 600px;
-  }
-}
-
-@media screen and (max-width: 900px) {
-  .page {
-    padding-bottom: 100px;
-  }
-}
-
-@media screen and (max-width: 550px) {
-  .page {
-    padding-bottom: 4500px;
-  }
-}
-

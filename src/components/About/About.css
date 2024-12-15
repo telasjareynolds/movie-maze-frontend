@@ -1,11 +1,11 @@
-.about__container {
+.about {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 100px 100px;
-  width: 50%;
-  margin: 80px auto 0;
+  width: 70%;
+  margin: 80px auto 80px;
   background-color: black;
   box-shadow: 1px 1px 20px white;
 }
@@ -30,8 +30,8 @@
 }
 
 @media screen and (max-width: 550px) {
-  .about__container {
-    padding: 60px;
+  .about {
+    padding: 40px;
     font-size: 14px;
   }
 
@@ -41,5 +41,6 @@
 
   .about__text {
     font-size: 14px;
+    text-align: start;
   }
 }

@@ -9,7 +9,7 @@ function Navigation({ openSignInModal, openSignOutModal }) {
   const isLoggedIn = currentUser && currentUser.username;
 
   return (
-    <div className="navigation">
+    <nav className="navigation">
       <Link to="/">
         <button className="navigation__home" type="button">
           Home
@@ -39,7 +39,7 @@ function Navigation({ openSignInModal, openSignOutModal }) {
           Sign in
         </button>
       )}
-    </div>
+    </nav>
   );
 }
 

@@ -34,12 +34,8 @@ export default [
         { allowConstantExport: true },
       ],
       "react/prop-types": 0,
+      "react/no-unescaped-entities": "off",
+      "no-unused-vars": ["error", { args: "none" }],
     },
-    overrides: [
-      {
-        // Without this, `npx eslint .` doesn't run on jsx files.
-        files: ["*.js", "*.jsx"],
-      },
-    ],
   },
 ];

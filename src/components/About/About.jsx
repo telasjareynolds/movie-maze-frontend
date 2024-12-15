@@ -1,10 +1,9 @@
-import React from "react";
 import "./About.css";
 
 const About = () => {
   return (
-    <section className="about__container">
-      <h1 className="about__heading">Welcome to Movie Maze!</h1>
+    <section className="about">
+      <h3 className="about__heading">Welcome to Movie Maze!</h3>
       <p className="about__text">
         Movie Maze is your personalized gateway to discovering, tracking, and
         diving deep into the world of movies. Whether you’re a casual movie

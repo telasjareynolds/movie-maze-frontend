@@ -32,7 +32,7 @@ function ModalWithForm({
           className="modal__close-btn"
         />
         <form
-          className={`modal__form modal_type_${name}`}
+          className="modal__form"
           name={name}
           onSubmit={onSubmit}
         >

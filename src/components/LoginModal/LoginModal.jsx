@@ -1,6 +1,5 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./LoginModal.css";
-import React from "react";
 import { useFormWithValidation } from "../../hooks/useFormWithValidation.js";
 
 function LoginModal({
@@ -16,7 +15,6 @@ function LoginModal({
   const handleSubmit = (e) => {
     e.preventDefault();
     handleLogin(values.email, values.password);
-
   };
 
   return (

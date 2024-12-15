@@ -1,10 +1,8 @@
-.movie {
+.movie__container {
   position: relative;
   list-style-type: none;
   display: flex;
   flex-direction: column;
-  /* min-height: 300px;
-  max-width: 200px; */
   width: 100%;
   border: 0.5px solid red;
   background-color: #ffffffbd;
@@ -12,20 +10,18 @@
   box-shadow: none;
   overflow: hidden;
   box-shadow: 4px 2px 9px red;
-  display: flex;
-  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   height: 100%;
 }
 
-.movie__container {
+.movie {
   position: relative;
 }
 
-.movie__container:hover {
+ .movie:hover {
   transform: translateY(-20px);
-}
+} 
 
 .movie__link {
   text-decoration: none;
@@ -79,8 +75,7 @@
 } */
 
 @media screen and (max-width: 550px) {
-  .card__img {
-    width: 164px;
-    height: 164px;
+  .movie__container {
+    width: 100%;
   }
 }
