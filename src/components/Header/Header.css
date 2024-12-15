@@ -4,7 +4,7 @@
   font-family: BonaNova, sans-serif;
   font-weight: bold;
   flex-wrap: wrap;
-  background: black;
+  background: rgba(0, 0, 0, 0.668);
   padding: 0 20px;
   min-width: fit-content;
 }
