@@ -105,7 +105,6 @@ function App() {
 
   // Log in
   function handleLogin(email, password) {
-
     if (!email || !password) {
       console.log("Email and password required");
       return;
@@ -114,13 +113,11 @@ function App() {
 
     authorize(email, password)
       .then((data) => {
-        console.log(data.token);
-        console.log(data.user);
-        if (data.token && data) {
+        if (data.user) {
           setToken(data.token);
           setIsLoggedInLoading(false);
           setIsLoggedIn(true);
-          setCurrentUser(data);
+          setCurrentUser(data.user);
         } else {
           console.error("No JWT token found in the response.");
         }
@@ -172,12 +169,13 @@ function App() {
 
   // handle Save movie functionality
   function handleSaveMovie({ imdbID, isSaved }) {
-    console.log(imdbID);
     const token = getToken();
+
     if (!isSaved) {
       api
-        .saveMovie(imdbID, token)
+        .saveMovie({ imdbID, token })
         .then(() => {
+      
           setMovies((movies) =>
             movies.map((item) =>
               item.imdbID === imdbID ? { ...item, isSaved: true } : item

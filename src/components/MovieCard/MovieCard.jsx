@@ -1,18 +1,19 @@
 import "./MovieCard.css";
 import saved_btn from "../../assets/saved_btn.svg";
 import unsaved_btn from "../../assets/unsaved_btn.svg";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function MovieCard({ movie, handleSaveMovie, isLoggedIn }) {
   // if user searches for results, show movieCardList, else, show default cards
   const currentUser = useContext(CurrentUserContext);
+ 
+  // console.log(currentUser);
 
-  console.log(movie);
+
   const isSaved = movie.saves ? movie.saves.some((id) => id === currentUser._id) : false
 
-  console.log(currentUser);
 
   // set card Save on frontend until backend is built
   function onCardSave(e) {
