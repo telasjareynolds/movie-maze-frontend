@@ -4,7 +4,7 @@ import { useContext, useState, useEffect } from "react";
 import MovieCard from "../MovieCard/MovieCard";
 import { getWatchList } from "../../utils/api";
 
-function SavedMovies({ handleSaveMovie }) {
+function SavedMovies({ handleSaveMovie, savedMovies }) {
   const currentUser = useContext(CurrentUserContext);
   const [movies, setMovies] = useState([]);
 

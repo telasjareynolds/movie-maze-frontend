@@ -68,10 +68,11 @@ export function saveMovie({ imdbID, token }) {
   return request(`${BASE_URL}/movies/${imdbID}/saves`, {
     method: "PUT",
     headers: {
+      Accept: "application/json",
       authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
-    body: JSON.parse( imdbID ),
+    body: JSON.stringify({imdbID}),
   });
 }
 

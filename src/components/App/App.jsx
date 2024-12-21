@@ -172,27 +172,26 @@ function App() {
     const token = getToken();
 
     if (!isSaved) {
-      api
-        .saveMovie({ imdbID, token })
-        .then(() => {
-      
-          setMovies((movies) =>
+
+       api
+         .saveMovie({ imdbID, token })
+        .then((savedMovie) => {
+           setMovies((movies) =>
             movies.map((item) =>
               item.imdbID === imdbID ? { ...item, isSaved: true } : item
-            )
-          );
-
-          setSavedMovies((saved) => {
-            if (!saved.some((item) => item.imdbID === imdbID)) {
-              return [...saved, { ...item, isSaved: true }];
-            }
-            return saved;
-          });
+             )
+         );
         })
-        .catch((err) => console.error(err));
-    } else {
-      console.log("Movie already saved");
-    }
+
+      //     setSavedMovies((saved) => {
+      //       if (!saved.some((movie) => movie.imdbID === imdbID)) {
+      //         return [...saved, { ...savedMovie, isSaved: true }];
+      //       }
+      //       return saved;
+      //     });
+      //    })
+      //   .catch((err) => console.error(err));
+}
   }
 
   // Open modals
@@ -253,10 +252,12 @@ function App() {
                   <ProtectedRoute
                     isLoggedIn={isLoggedIn}
                     isLoggedInLoading={isLoggedInLoading}
+                    
                   >
                     <SavedMovies
-                      movies={savedMovies}
+  
                       handleSaveMovie={handleSaveMovie}
+                      savedMovies={savedMovies}
                     />
                   </ProtectedRoute>
                 }

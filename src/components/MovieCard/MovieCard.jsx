@@ -8,11 +8,9 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 function MovieCard({ movie, handleSaveMovie, isLoggedIn }) {
   // if user searches for results, show movieCardList, else, show default cards
   const currentUser = useContext(CurrentUserContext);
- 
-  // console.log(currentUser);
 
 
-  const isSaved = movie.saves ? movie.saves.some((id) => id === currentUser._id) : false
+  const isSaved = movie.saves?.some((id) => id === currentUser._id);
 
 
   // set card Save on frontend until backend is built
