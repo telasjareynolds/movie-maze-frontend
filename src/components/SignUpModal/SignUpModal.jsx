@@ -14,7 +14,7 @@ function SignUpModal({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleSignUp(values.username, values.email, values.password);
+    handleSignUp( values.email, values.password, values.username);
     resetForm();
   };
 
@@ -51,6 +51,7 @@ function SignUpModal({
           placeholder="Password"
           onChange={handleChange}
           value={values.password}
+          minLength={8}
         />
         {errors.password && (
           <span className="modal__error">{errors.password}</span>

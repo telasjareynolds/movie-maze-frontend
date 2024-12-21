@@ -1,3 +1,5 @@
+import { BASE_URL } from "./constants";
+
 export function checkResponse(res) {
   if (res.ok) {
     return res.json();
@@ -59,4 +61,24 @@ export function getWatchList() {
       },
     ])
   );
+}
+
+// Save movie
+export function saveMovie(imdbID, token) {
+  return request(`${BASE_URL}/movies/${imdbID}/saves`, {
+    method: "PUT",
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+// Unsave movie
+export function unsaveMovie(imdbID, token) {
+  return request(`${BASE_URL}/movies/${imdbID}/saves`, {
+    method: "DELETE",
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
 }

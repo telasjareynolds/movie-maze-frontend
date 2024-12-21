@@ -1,9 +1,12 @@
-import { BASE_URL } from "./constants";
 import { request } from "./api";
+
+const API_BASE_URL = `https://www.omdbapi.com/?apikey=${
+  import.meta.env.VITE_API_KEY
+}`;
 
 // Fetch details for a single movie by IMDb ID
 export function fetchMovieDetailsByID(imdbID) {
-  return request(`${BASE_URL}&i=${imdbID}`);
+  return request(`${API_BASE_URL}&i=${imdbID}`);
 }
 
 // fetch home page movies
@@ -21,7 +24,7 @@ export function getInitialMovies(defaultMovies) {
 
 // search movies using searchbar
 export function searchMovies(searchTerm) {
-  return request(`${BASE_URL}&s=${searchTerm}`, {
+  return request(`${API_BASE_URL}&s=${searchTerm}`, {
     method: "POST",
     // headers: {
     //   "Content-Type": "application/json",
@@ -33,18 +36,5 @@ export function searchMovies(searchTerm) {
       return fetchMovieDetailsByID(movie.imdbID);
     });
     return Promise.all(promises);
-  });
-}
-
-// fictional backend api
-export function SaveMovie(movie) {
-  return new Promise((resolve) => {
-    resolve({
-      id: "12345",
-      imdbID: movie.imbdID,
-      Poster: movie.Poster,
-      Title: movie.Title,
-      Year: movie.Year,
-    });
   });
 }

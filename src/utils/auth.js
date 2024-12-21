@@ -1,24 +1,42 @@
-export const authorize = (email, password) => {
-  return new Promise((resolve) => {
-    resolve({ token: "a fake token" });
-  });
-};
+import { request } from "./api";
+import { BASE_URL } from "./constants";
 
-export const logout = () => {
-  return new Promise((resolve) => {
-    resolve({ token: "" });
+export const authorize = (email, password) => {
+  return request(`${BASE_URL}/signin`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,
+      password,
+    }),
   });
 };
 
 export const signup = (email, password, username) => {
-  return new Promise((resolve) => {
-    resolve({ token: "a fake token" });
+  return request(`${BASE_URL}/signup`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username,
+      email,
+      password,
+    }),
   });
 };
 
 // get current user
-export const getUser = () => {
-  return new Promise((resolve) => {
-    resolve({ email: "gus@mail.com", username: "gus", _id: "12345" });
+// Check for user token
+export function getUser(token) {
+  return request(`${BASE_URL}/users/me`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
   });
-};
+}

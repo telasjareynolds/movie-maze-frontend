@@ -4,12 +4,12 @@ export default function ProtectedRoute({
   isLoggedIn,
   children,
   anonymous = false,
-  // isLoggedInLoading,
+  isLoggedInLoading,
 }) {
   const location = useLocation();
   const from = location.state?.from || "/";
 
-  // if (isLoggedInLoading) return null;
+  if (isLoggedInLoading) return null;
 
   // If the user is logged in redirect them away from our anonymous routes.
   if (anonymous && isLoggedIn) {

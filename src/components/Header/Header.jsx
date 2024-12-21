@@ -4,7 +4,7 @@ import logo from "../../assets/logo.svg";
 import SearchForm from "../SearchForm/SearchForm";
 import { Link } from "react-router-dom";
 
-function Header({ onSearch, openSignInModal, openSignOutModal }) {
+function Header({ onSearch, openSignInModal, openSignOutModal, resetSearch }) {
   return (
     <header className="header">
       <div className="header__name-container">
@@ -14,7 +14,7 @@ function Header({ onSearch, openSignInModal, openSignOutModal }) {
         <h2 className="header__title">Movie Maze</h2>
       </div>
       <div className="header__nav">
-        <SearchForm onSearch={onSearch} />
+        <SearchForm onSearch={onSearch} resetSearch={resetSearch} />
         <Navigation
           openSignInModal={openSignInModal}
           openSignOutModal={openSignOutModal}

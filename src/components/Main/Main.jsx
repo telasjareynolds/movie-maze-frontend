@@ -1,15 +1,15 @@
 import "./Main.css";
 import MovieCardList from "../MovieCardList/MovieCardList";
 
-function Main({ onSearch, movies, query, handleSaveMovie }) {
+function Main({ onSearch, movies, handleSaveMovie, isLoggedIn }) {
 
   return (
     <main className="main">
         <MovieCardList
           movies={movies}
-          query={query}
           onSearch={onSearch}
           handleSaveMovie={handleSaveMovie}
+          isLoggedIn={isLoggedIn}
         />
     </main>
   );

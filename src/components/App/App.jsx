@@ -8,22 +8,24 @@ import Main from "../Main/Main";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Footer from "../Footer/Footer";
 import defaultMovies from "../../utils/defaultMovies.js";
-import * as api from "../../utils/Ombdapi.js";
+import * as Ombdapi from "../../utils/Ombdapi.js";
+import * as api from "../../utils/api.js";
 import LoginModal from "../LoginModal/LoginModal.jsx";
 import SignUpModal from "../SignUpModal/SignUpModal.jsx";
 import About from "../About/About.jsx";
 import MovieInfoPage from "../MovieInfoPage/MovieInfoPage.jsx";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
-import { signup, authorize, getUser, logout } from "../../utils/auth.js";
+import { signup, authorize, getUser } from "../../utils/auth.js";
 import SignUpSuccessfulModal from "../SignUpSuccessfulModal/SignUpSuccessfulModal.jsx";
 import SignOutModal from "../SignOutModal/SignOutModal.jsx";
 import ProtectedRoute from "../ProtectedRoute.jsx";
+import { getToken, setToken, removeToken } from "../../utils/token.js";
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [movies, setMovies] = useState([]);
   const [modalActive, setModalActive] = useState("");
-  const [query, setQuery] = useState("");
+
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({
@@ -32,17 +34,38 @@ function App() {
     _id: "",
   });
   const [savedMovies, setSavedMovies] = useState([]);
+  const [isLoggedInLoading, setIsLoggedInLoading] = useState(true);
 
   // get default movies on page load
   useEffect(() => {
     setIsLoading(true);
-    api
-      .getInitialMovies(defaultMovies)
+    Ombdapi.getInitialMovies(defaultMovies)
       .then((data) => {
         setMovies(data);
       })
       .catch((err) => console.error(`Error fetching initial movies:`, err))
       .finally(setIsLoading(false));
+  }, []);
+
+  // get current user on page load
+  useEffect(() => {
+    const jwt = getToken();
+    if (!jwt) {
+      console.log("No token found in localStorage");
+      return;
+    }
+
+    getUser(jwt)
+      .then((data) => {
+        setIsLoggedInLoading(false);
+        setCurrentUser(data.user);
+        setIsLoggedIn(true);
+      })
+      .catch((error) => {
+        console.error("Invalid token:", error);
+        removeToken();
+        setIsLoggedInLoading(false);
+      });
   }, []);
 
   //Stop ESC listener if there are no active modals
@@ -71,19 +94,18 @@ function App() {
     setIsLoading(true);
 
     signup(email, password, username)
-      .then((data) => {
-        setCurrentUser(data);
-        closeActivemodal();
-        setModalActive("successful-registration");
+      .then(() => {
+        handleLogin(email, password);
       })
       .catch((err) => {
-        console.error("Error logging in:", err);
+        console.error("Error registering user:", err);
       })
       .finally(() => setIsLoading(false));
   }
 
   // Log in
   function handleLogin(email, password) {
+
     if (!email || !password) {
       console.log("Email and password required");
       return;
@@ -92,44 +114,45 @@ function App() {
 
     authorize(email, password)
       .then((data) => {
-        getUser(data.token).then((userData) => {
+        console.log(data.token);
+        console.log(data.user);
+        if (data.token && data) {
+          setToken(data.token);
+          setIsLoggedInLoading(false);
           setIsLoggedIn(true);
-          setCurrentUser(userData);
-          closeActivemodal();
-        });
-      })
-      .catch((err) => {
-        console.error("Error logging in:", err);
-      })
-      .finally(() => setIsLoading(false));
-  }
-
-  // Signout
-  function signOut() {
-    logout()
-      .then(() => {
-        setIsLoggedIn(false);
-        setCurrentUser({ email: "", username: "", _id: "" });
+          setCurrentUser(data);
+        } else {
+          console.error("No JWT token found in the response.");
+        }
         closeActivemodal();
       })
       .catch((err) => {
         console.error("Error logging in:", err);
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => {
+        setIsLoading(false);
+        setIsLoggedInLoading(false);
+      });
+  }
 
+  // Signout
+  function signOut() {
+    setIsLoggedIn(false);
+    setCurrentUser({});
+    removeToken();
+    closeActivemodal();
     //remove token once backend build
   }
 
   //handle search queries
   function searchMovies(query) {
     setIsLoading(true);
-    api
-      .searchMovies(query)
+    Ombdapi.searchMovies(query)
       .then((data) => {
         if (data.length === 0) {
           setMovies([]);
         } else {
-          setQuery(data);
+          setMovies(data);
           setErrorMessage("");
         }
       })
@@ -141,21 +164,29 @@ function App() {
       })
       .finally(setIsLoading(false));
   }
+
+  // resetSearch - clear current movies => setMovies([])
+  function resetSearch() {
+    setMovies([]);
+  }
+
   // handle Save movie functionality
-  function handleSaveMovie(movie) {
-    if (!movie.isSaved) {
+  function handleSaveMovie({ imdbID, isSaved }) {
+    console.log(imdbID);
+    const token = getToken();
+    if (!isSaved) {
       api
-        .SaveMovie(movie)
+        .saveMovie(imdbID, token)
         .then(() => {
           setMovies((movies) =>
             movies.map((item) =>
-              item.imdbID === movie.imdbID ? { ...item, isSaved: true } : item
+              item.imdbID === imdbID ? { ...item, isSaved: true } : item
             )
           );
 
           setSavedMovies((saved) => {
-            if (!saved.some((item) => item.imdbID === movie.imdbID)) {
-              return [...saved, { ...movies, isSaved: true }];
+            if (!saved.some((item) => item.imdbID === imdbID)) {
+              return [...saved, { ...item, isSaved: true }];
             }
             return saved;
           });
@@ -195,45 +226,48 @@ function App() {
           <p className="page__error-message">{errorMessage}</p>
         ) : (
           <div className="page">
-              <Header
-                onSearch={searchMovies}
-                openSignInModal={openSignInModal}
-                openSignOutModal={openSignOutModal}
+            <Header
+              onSearch={searchMovies}
+              resetSearch={resetSearch}
+              openSignInModal={openSignInModal}
+              openSignOutModal={openSignOutModal}
+            />
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Main
+                    onSearch={searchMovies}
+                    movies={movies.length > 0 ? movies : defaultMovies}
+                    handleSaveMovie={handleSaveMovie}
+                    isLoggedIn={isLoggedIn}
+                  />
+                }
               />
-              <Routes>
-                <Route
-                  path="/"
-                  element={
-                    <Main
-                      onSearch={searchMovies}
-                      movies={query.length > 0 ? query : defaultMovies}
-                      query={query}
+              <Route
+                path="/movies/:imdbID"
+                element={<MovieInfoPage movies={movies} />}
+              />
+
+              <Route
+                path="/Saved-movies"
+                element={
+                  <ProtectedRoute
+                    isLoggedIn={isLoggedIn}
+                    isLoggedInLoading={isLoggedInLoading}
+                  >
+                    <SavedMovies
+                      movies={savedMovies}
                       handleSaveMovie={handleSaveMovie}
                     />
-                  }
-                />
-                <Route
-                  path="/movies/:imdbID"
-                  element={<MovieInfoPage movies={movies} />}
-                />
-
-                <Route
-                  path="/Saved-movies"
-                  element={
-                    <ProtectedRoute
-                      isLoggedIn={isLoggedIn}
-                      // isLoggedInLoading={isLoggedInLoading}
-                    >
-                      <SavedMovies movies={savedMovies} handleSaveMovie={handleSaveMovie} />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route path="/about" element={<About />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-              <Footer />
-            </div>
-         
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="/about" element={<About />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            <Footer />
+          </div>
         )}
         <LoginModal
           handleModalClose={closeActivemodal}

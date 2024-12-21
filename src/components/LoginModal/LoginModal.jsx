@@ -52,6 +52,7 @@ function LoginModal({
           onChange={handleChange}
           value={values.password}
           required
+          minLength={8}
         />
         {errors.password && (
           <span className="modal__error">{errors.password}</span>

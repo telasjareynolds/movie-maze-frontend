@@ -2,7 +2,7 @@ import "./MovieCardList.css";
 import MovieCard from "../MovieCard/MovieCard";
 
 
-function MovieCardList({ movies, handleSaveMovie }) {
+function MovieCardList({ movies, handleSaveMovie, isLoggedIn }) {
   return (
     <section className="movies">
       <h1 className="movies__heading">Fan Favorites</h1>
@@ -19,6 +19,7 @@ function MovieCardList({ movies, handleSaveMovie }) {
                 movie={movie}
                 movies={movies}
                 handleSaveMovie={handleSaveMovie}
+                isLoggedIn={isLoggedIn}
               />
             );
           })}
