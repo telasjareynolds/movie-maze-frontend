@@ -2,8 +2,14 @@ import "./MovieCard.css";
 import saved_btn from "../../assets/saved_btn.svg";
 import unsaved_btn from "../../assets/unsaved_btn.svg";
 import { Link } from "react-router-dom";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { useContext } from "react";
 
-function MovieCard({ movie, handleSaveMovie, isLoggedIn, isMovieSaved }) {
+function MovieCard({ movie, handleSaveMovie, isLoggedIn}) {
+
+  const currentUser = useContext(CurrentUserContext);
+  const isMovieSaved = movie.owner === currentUser._id;
+
   // set card Save on frontend until backend is built
   function onCardSave(e) {
     e.preventDefault();

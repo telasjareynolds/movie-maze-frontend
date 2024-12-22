@@ -244,7 +244,7 @@ function App() {
                     movies={movies.length > 0 ? movies : defaultMovies}
                     handleSaveMovie={handleSaveMovie}
                     isLoggedIn={isLoggedIn}
-                    isMovieSaved={isMovieSaved}
+                
                   />
                 }
               />
