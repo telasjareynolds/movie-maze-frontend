@@ -4,21 +4,11 @@ import { useContext, useState, useEffect } from "react";
 import MovieCard from "../MovieCard/MovieCard";
 
 function SavedMovies({ handleSaveMovie, savedMovies }) {
-
   const currentUser = useContext(CurrentUserContext);
- 
+
   const userSavedMovies = savedMovies.owner === currentUser.__id;
 
-  // //fetch movie details of id
-  // useEffect(() => {
-  //   getWatchList()
-  //     .then((data) => {
-  //       setMovies(data);
-  //     })
-  //     .catch((err) =>
-  //       console.error("There was an error getting watchlist:", err)
-  //     );
-  // }, []);
+  console.log(savedMovies);
 
   return (
     <section className="watchlist">

@@ -34,7 +34,6 @@ function App() {
     _id: "",
   });
   const [savedMovies, setSavedMovies] = useState([]);
-  const [isMovieSaved, setIsMovieSaved] = useState(false);
   const [isLoggedInLoading, setIsLoggedInLoading] = useState(true);
 
   // get default movies on page load
@@ -173,30 +172,33 @@ function App() {
   function handleSaveMovie(imdbID) {
     const token = getToken();
 
-    if (isMovieSaved && token) {
+    if (!token) {
+      console.error("User is not authenticated");
+      return;
+    }
+
+    const isAlreadySaved = savedMovies.some((movie) => movie.imdbID === imdbID);
+
+    if (!isAlreadySaved) {
       api
         .saveMovie({ imdbID }, token)
         .then((data) => {
-          setSavedMovies((movies) => [data, ...movies]);
-          setIsMovieSaved(true);
+          setSavedMovies((prevMovies) => [data, ...prevMovies]);
         })
         .catch((error) => {
           console.error("Error saving movie:", error);
         });
-    } else if (!isMovieSaved && token) {
+    } else {
       api
         .unsaveMovie(imdbID, token)
         .then(() => {
-          setIsMovieSaved(false);
-          setSavedMovies((movies) =>
-            movies.filter((item) => item.imdbID !== imdbID)
+          setSavedMovies((prevMovies) =>
+            prevMovies.filter((movie) => movie.imdbID !== imdbID)
           );
         })
         .catch((error) => {
           console.error("Error unsaving movie:", error);
         });
-    } else {
-      console.error("User is not authenticated");
     }
   }
 
@@ -244,7 +246,7 @@ function App() {
                     movies={movies.length > 0 ? movies : defaultMovies}
                     handleSaveMovie={handleSaveMovie}
                     isLoggedIn={isLoggedIn}
-                
+                    savedMovies={savedMovies}
                   />
                 }
               />
