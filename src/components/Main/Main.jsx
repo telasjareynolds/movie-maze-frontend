@@ -1,7 +1,7 @@
 import "./Main.css";
 import MovieCardList from "../MovieCardList/MovieCardList";
 
-function Main({ onSearch, movies, handleSaveMovie, isLoggedIn }) {
+function Main({ onSearch, movies, handleSaveMovie, isLoggedIn, isMovieSaved }) {
 
   return (
     <main className="main">
@@ -10,6 +10,7 @@ function Main({ onSearch, movies, handleSaveMovie, isLoggedIn }) {
           onSearch={onSearch}
           handleSaveMovie={handleSaveMovie}
           isLoggedIn={isLoggedIn}
+        isMovieSaved={isMovieSaved}
         />
     </main>
   );

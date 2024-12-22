@@ -34,6 +34,7 @@ function App() {
     _id: "",
   });
   const [savedMovies, setSavedMovies] = useState([]);
+  const [isMovieSaved, setIsMovieSaved] = useState(false);
   const [isLoggedInLoading, setIsLoggedInLoading] = useState(true);
 
   // get default movies on page load
@@ -50,6 +51,7 @@ function App() {
   // get current user on page load
   useEffect(() => {
     const jwt = getToken();
+
     if (!jwt) {
       console.log("No token found in localStorage");
       return;
@@ -168,13 +170,33 @@ function App() {
   }
 
   // handle Save movie functionality
-  function handleSaveMovie( imdbID, owner ) {
+  function handleSaveMovie(imdbID) {
     const token = getToken();
 
-    if (!savedMovies) {
-      api.saveMovie({ imdbID, owner }, token).then((data) => {
-        setSavedMovies((savedMovies) => [data, ...savedMovies]);
-      });
+    if (isMovieSaved && token) {
+      api
+        .saveMovie({ imdbID }, token)
+        .then((data) => {
+          setSavedMovies((movies) => [data, ...movies]);
+          setIsMovieSaved(true);
+        })
+        .catch((error) => {
+          console.error("Error saving movie:", error);
+        });
+    } else if (!isMovieSaved && token) {
+      api
+        .unsaveMovie(imdbID, token)
+        .then(() => {
+          setIsMovieSaved(false);
+          setSavedMovies((movies) =>
+            movies.filter((item) => item.imdbID !== imdbID)
+          );
+        })
+        .catch((error) => {
+          console.error("Error unsaving movie:", error);
+        });
+    } else {
+      console.error("User is not authenticated");
     }
   }
 
@@ -222,6 +244,7 @@ function App() {
                     movies={movies.length > 0 ? movies : defaultMovies}
                     handleSaveMovie={handleSaveMovie}
                     isLoggedIn={isLoggedIn}
+                    isMovieSaved={isMovieSaved}
                   />
                 }
               />

@@ -1,18 +1,13 @@
 import "./MovieCard.css";
 import saved_btn from "../../assets/saved_btn.svg";
 import unsaved_btn from "../../assets/unsaved_btn.svg";
-import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-function MovieCard({ movie, handleSaveMovie, isLoggedIn }) {
-  // if user searches for results, show movieCardList, else, show default cards
-  const currentUser = useContext(CurrentUserContext);
-
+function MovieCard({ movie, handleSaveMovie, isLoggedIn, isMovieSaved }) {
   // set card Save on frontend until backend is built
   function onCardSave(e) {
     e.preventDefault();
-    handleSaveMovie({ imdbID: movie.imdbID, owner: currentUser });
+    handleSaveMovie(movie.imdbID);
   }
 
   return (
@@ -33,8 +28,8 @@ function MovieCard({ movie, handleSaveMovie, isLoggedIn }) {
       </Link>
       {isLoggedIn && (
         <img
-          src={isSaved ? saved_btn : unsaved_btn} // Toggle Save button image
-          alt={isSaved ? "saved" : "not saved"}
+          src={isMovieSaved ? saved_btn : unsaved_btn} // Toggle Save button image
+          alt={isMovieSaved ? "saved" : "not saved"}
           className="movie__save-btn"
           onClick={onCardSave}
         />
