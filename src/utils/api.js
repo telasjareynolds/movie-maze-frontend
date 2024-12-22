@@ -64,25 +64,33 @@ export function getWatchList() {
 }
 
 // Save movie
-export function saveMovie({ imdbID, token }) {
-  return request(`${BASE_URL}/movies/${imdbID}/saves`, {
-    method: "PUT",
+export function saveMovie({ imdbID, owner }, token) {
+  return request(`${BASE_URL}/movies/saves`, {
+    method: "POST",
     headers: {
       Accept: "application/json",
       authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({imdbID}),
+    body: JSON.stringify({
+      imdbID,
+      owner,
+    }),
   });
 }
 
 // Unsave movie
-export function unsaveMovie({ imdbID, token }) {
-  return request(`${BASE_URL}/movies/${imdbID}/saves`, {
+export function unsaveMovie({ imdbID, owner }, token) {
+  return request(`${BASE_URL}/movies/saves`, {
     method: "DELETE",
+    body: JSON.stringify({ imdbID }),
     headers: {
       authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
+    body: JSON.stringify({
+      imdbID,
+      owner,
+    }),
   });
 }

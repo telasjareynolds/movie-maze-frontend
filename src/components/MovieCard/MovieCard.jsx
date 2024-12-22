@@ -9,14 +9,10 @@ function MovieCard({ movie, handleSaveMovie, isLoggedIn }) {
   // if user searches for results, show movieCardList, else, show default cards
   const currentUser = useContext(CurrentUserContext);
 
-
-  const isSaved = movie.saves?.some((id) => id === currentUser._id);
-
-
   // set card Save on frontend until backend is built
   function onCardSave(e) {
     e.preventDefault();
-    handleSaveMovie({ imdbID: movie.imdbID, isSaved });
+    handleSaveMovie({ imdbID: movie.imdbID, owner: currentUser });
   }
 
   return (

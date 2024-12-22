@@ -168,30 +168,14 @@ function App() {
   }
 
   // handle Save movie functionality
-  function handleSaveMovie({ imdbID, isSaved }) {
+  function handleSaveMovie( imdbID, owner ) {
     const token = getToken();
 
-    if (!isSaved) {
-
-       api
-         .saveMovie({ imdbID, token })
-        .then((savedMovie) => {
-           setMovies((movies) =>
-            movies.map((item) =>
-              item.imdbID === imdbID ? { ...item, isSaved: true } : item
-             )
-         );
-        })
-
-      //     setSavedMovies((saved) => {
-      //       if (!saved.some((movie) => movie.imdbID === imdbID)) {
-      //         return [...saved, { ...savedMovie, isSaved: true }];
-      //       }
-      //       return saved;
-      //     });
-      //    })
-      //   .catch((err) => console.error(err));
-}
+    if (!savedMovies) {
+      api.saveMovie({ imdbID, owner }, token).then((data) => {
+        setSavedMovies((savedMovies) => [data, ...savedMovies]);
+      });
+    }
   }
 
   // Open modals
@@ -252,10 +236,8 @@ function App() {
                   <ProtectedRoute
                     isLoggedIn={isLoggedIn}
                     isLoggedInLoading={isLoggedInLoading}
-                    
                   >
                     <SavedMovies
-  
                       handleSaveMovie={handleSaveMovie}
                       savedMovies={savedMovies}
                     />
