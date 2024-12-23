@@ -1,14 +1,15 @@
 import "./SavedMovies.css";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { useContext, useState, useEffect } from "react";
 import MovieCard from "../MovieCard/MovieCard";
+import { useContext } from "react";
 
-function SavedMovies({ handleSaveMovie, savedMovies }) {
+function SavedMovies({ movies, handleSaveMovie, isLoggedIn, savedMovies }) {
   const currentUser = useContext(CurrentUserContext);
 
-  const userSavedMovies = savedMovies.owner === currentUser.__id;
+  const userSavedMovies = (savedMovies || []).filter((movie) => {
+    return movie.owner === currentUser._id;
+  });
 
-  console.log(savedMovies);
 
   return (
     <section className="watchlist">
@@ -22,8 +23,9 @@ function SavedMovies({ handleSaveMovie, savedMovies }) {
               <MovieCard
                 key={movie.imdbID}
                 movie={movie}
-                savedMovies={movies}
                 handleSaveMovie={handleSaveMovie}
+                isLoggedIn={isLoggedIn}
+                savedMovies={savedMovies}
               />
             );
           })}

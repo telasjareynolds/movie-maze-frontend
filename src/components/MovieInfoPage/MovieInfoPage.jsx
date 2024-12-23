@@ -7,28 +7,27 @@ function MovieInfoPage() {
   const { imdbID } = useParams();
   //const movie = movies.find((m) => m.imdbID === imdbID);
   const [movie, setMovie] = useState({
-    Actors: "",
-    Awards: "",
-    BoxOffice: "",
-    Country: "",
-    DVD: "",
-    Director: "",
-    Genre: "",
-    Language: "",
-    Metascore: "",
-    Plot: "",
-    Poster: "",
-    Production: "",
-    Rated: "",
-    Ratings: [],
-    Released: "",
-    Response: "",
-    Runtime: "",
-    Title: "",
-    Type: "",
-    Website: "",
-    Writer: "",
-    Year: "",
+    actors: "",
+    awards: "",
+    boxOffice: "",
+    country: "",
+    director: "",
+    genre: "",
+    language: "",
+    metascore: "",
+    plot: "",
+    poster: "",
+    production: "",
+    rated: "",
+    ratings: [],
+    released: "",
+    response: "",
+    runtime: "",
+    title: "",
+    type: "",
+    website: "",
+    writer: "",
+    year: "",
     imdbID: "",
     imdbRating: "",
     imdbVotes: "",
@@ -50,45 +49,45 @@ function MovieInfoPage() {
 
   return (
     <section className="info">
-      <img src={movie.Poster} alt={movie.Title} className="info__poster" />
+      <img src={movie.poster} alt={movie.title} className="info__poster" />
       <ul className="info__list">
         <li className="info__list-item">
           {" "}
-          <strong>Title:</strong> {movie.Title}
+          <strong>Title:</strong> {movie.title}
         </li>
         <li className="info__list-item">
           {" "}
-          <strong> Movie or TV Show:</strong> {movie.Type}
+          <strong> Movie or TV Show:</strong> {movie.type}
         </li>
 
         <li className="info__list-item">
-          <strong> Year:</strong> {movie.Year}
+          <strong> Year:</strong> {movie.year}
         </li>
         <li className="info__list-item">
           {" "}
-          <strong>Rated:</strong> {movie.Rated}
+          <strong>Rated:</strong> {movie.rated}
         </li>
         <li className="info__list-item">
           {" "}
-          <strong>Runtime:</strong> {movie.Runtime}
+          <strong>Runtime:</strong> {movie.runtime}
         </li>
         <li className="info__list-item">
           {" "}
-          <strong>Actors:</strong> {movie.Actors}
+          <strong>Actors:</strong> {movie.actors}
         </li>
         <li className="info__list-item">
-          <strong> Director:</strong> {movie.Director}
-        </li>
-        <li className="info__list-item">
-          {" "}
-          <strong>Writer:</strong> {movie.Writer}
+          <strong> Director:</strong> {movie.director}
         </li>
         <li className="info__list-item">
           {" "}
-          <strong>Genre:</strong> {movie.Genre}
+          <strong>Writer:</strong> {movie.writer}
         </li>
         <li className="info__list-item">
-          <strong> Plot:</strong> {movie.Plot}
+          {" "}
+          <strong>Genre:</strong> {movie.genre}
+        </li>
+        <li className="info__list-item">
+          <strong> Plot:</strong> {movie.plot}
         </li>
       </ul>
     </section>

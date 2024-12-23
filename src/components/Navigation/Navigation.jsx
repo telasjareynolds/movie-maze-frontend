@@ -17,7 +17,7 @@ function Navigation({ openSignInModal, openSignOutModal }) {
       </Link>
       {isLoggedIn ? (
         <div className="navigation__user">
-          <Link to="/Saved-movies" className="navigation__watchlist">
+          <Link to="/saved-movies" className="navigation__watchlist">
             {" "}
             Watchlist
           </Link>

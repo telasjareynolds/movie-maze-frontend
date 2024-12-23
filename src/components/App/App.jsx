@@ -47,7 +47,7 @@ function App() {
       .finally(setIsLoading(false));
   }, []);
 
-  // get current user on page load
+  // get current user on page load and saved items
   useEffect(() => {
     const jwt = getToken();
 
@@ -61,10 +61,21 @@ function App() {
         setIsLoggedInLoading(false);
         setCurrentUser(data.user);
         setIsLoggedIn(true);
+
+        return api
+          .getSavedMovies(jwt)
+
+          .then((movies) => {
+
+            setSavedMovies(movies);
+          });
       })
       .catch((error) => {
-        console.error("Invalid token:", error);
+        console.error("Error fetching saved movies or user:", error);
         removeToken();
+      })
+      .finally(() => {
+        setIsLoading(false);
         setIsLoggedInLoading(false);
       });
   }, []);
@@ -169,7 +180,7 @@ function App() {
   }
 
   // handle Save movie functionality
-  function handleSaveMovie(imdbID) {
+  function handleSaveMovie(movie) {
     const token = getToken();
 
     if (!token) {
@@ -177,29 +188,32 @@ function App() {
       return;
     }
 
+    const { imdbID, title, poster, year } = movie;
+
     const isAlreadySaved = savedMovies.some((movie) => movie.imdbID === imdbID);
 
-    if (!isAlreadySaved) {
-      api
-        .saveMovie({ imdbID }, token)
-        .then((data) => {
-          setSavedMovies((prevMovies) => [data, ...prevMovies]);
-        })
-        .catch((error) => {
-          console.error("Error saving movie:", error);
-        });
-    } else {
-      api
-        .unsaveMovie(imdbID, token)
-        .then(() => {
-          setSavedMovies((prevMovies) =>
-            prevMovies.filter((movie) => movie.imdbID !== imdbID)
-          );
-        })
-        .catch((error) => {
-          console.error("Error unsaving movie:", error);
-        });
-    }
+    const apiCall = isAlreadySaved
+      ? api.unsaveMovie(imdbID, token)
+      : api.saveMovie(
+          {
+            imdbID,
+            title: title,
+            poster: poster,
+            year: year,
+          },
+          token
+        );
+
+    apiCall
+      .then(() => {
+        return api.getSavedMovies(token);
+      })
+      .then((movies) => {
+        setSavedMovies(Array.isArray(movies) ? movies : []);
+      })
+      .catch((error) => {
+        console.error("Error unsaving movie:", error);
+      });
   }
 
   // Open modals
@@ -256,14 +270,16 @@ function App() {
               />
 
               <Route
-                path="/Saved-movies"
+                path="/saved-movies"
                 element={
                   <ProtectedRoute
                     isLoggedIn={isLoggedIn}
                     isLoggedInLoading={isLoggedInLoading}
                   >
                     <SavedMovies
+                      movies={movies}
                       handleSaveMovie={handleSaveMovie}
+                      isLoggedIn={isLoggedIn}
                       savedMovies={savedMovies}
                     />
                   </ProtectedRoute>

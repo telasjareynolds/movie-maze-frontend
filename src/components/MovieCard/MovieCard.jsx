@@ -4,7 +4,6 @@ import unsaved from "../../assets/unsaved_btn.svg";
 import { Link } from "react-router-dom";
 
 function MovieCard({ movie, handleSaveMovie, isLoggedIn, savedMovies }) {
-  
   const isMovieSaved = savedMovies.some(
     (savedMovie) => savedMovie.imdbID === movie.imdbID
   );
@@ -13,7 +12,7 @@ function MovieCard({ movie, handleSaveMovie, isLoggedIn, savedMovies }) {
 
   function onCardSave(e) {
     e.preventDefault();
-    handleSaveMovie(movie.imdbID);
+    handleSaveMovie(movie);
   }
 
   return (
@@ -21,13 +20,13 @@ function MovieCard({ movie, handleSaveMovie, isLoggedIn, savedMovies }) {
       <Link className="movie__link" to={`/movies/${movie.imdbID}`}>
         <div className="movie__container">
           <img
-            src={movie.Poster}
-            alt={movie.Title}
+            src={movie.poster}
+            alt={movie.title}
             className="movie__card-img"
           />
           <div className="movie__info-container">
             <p className="movie__name">
-              {movie.Title} ({movie.Year})
+              {movie.title} ({movie.year})
             </p>
           </div>
         </div>
