@@ -66,7 +66,6 @@ function App() {
           .getSavedMovies(jwt)
 
           .then((movies) => {
-
             setSavedMovies(movies);
           });
       })
@@ -106,13 +105,17 @@ function App() {
     setIsLoading(true);
 
     signup(email, password, username)
-      .then(() => {
-        handleLogin(email, password);
+      .then((data) => {
+        setToken(data.token);
+        setIsLoggedInLoading(false);
+        setModalActive("successful-registration");
       })
       .catch((err) => {
         console.error("Error registering user:", err);
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   // Log in
@@ -221,6 +224,7 @@ function App() {
     e.preventDefault();
     setModalActive("register");
   };
+
   const openSignInModal = (e) => {
     e.preventDefault();
     setModalActive("login");
