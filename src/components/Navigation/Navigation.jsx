@@ -8,8 +8,6 @@ function Navigation({ openSignInModal, openSignOutModal }) {
 
   const isLoggedIn = currentUser && currentUser.username;
 
-  console.log(currentUser._id);
-
   return (
     <nav className="navigation">
       <Link to="/">

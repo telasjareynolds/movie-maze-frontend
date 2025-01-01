@@ -8,8 +8,6 @@ function MovieCard({ movie, handleSaveMovie, isLoggedIn, savedMovies }) {
     (savedMovie) => savedMovie.imdbID === movie.imdbID
   );
 
-  console.log(savedMovies);
-  
   // set card Save on frontend until backend is built
 
   function onCardSave(e) {

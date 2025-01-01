@@ -30,6 +30,7 @@ function LoginModal({
         Email *{" "}
         <input
           name="email"
+          autoComplete="email"
           className="modal__input"
           id="login-email"
           type="email"
@@ -48,6 +49,7 @@ function LoginModal({
           name="password"
           id="login-password"
           type="password"
+          autoComplete="current-password"
           placeholder="Password"
           onChange={handleChange}
           value={values.password}

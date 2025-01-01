@@ -137,6 +137,10 @@ function App() {
           console.error("No JWT token found in the response.");
         }
         closeActivemodal();
+        return api.getSavedMovies(getToken());
+      })
+      .then((movies) => {
+        setSavedMovies(movies);
       })
       .catch((err) => {
         console.error("Error logging in:", err);
@@ -153,6 +157,7 @@ function App() {
     setCurrentUser({});
     removeToken();
     closeActivemodal();
+    setSavedMovies([]);
     //remove token once backend build
   }
 

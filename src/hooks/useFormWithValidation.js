@@ -20,7 +20,15 @@ export function useFormWithValidation() {
     setIsValid(e.target.closest("form").checkValidity());
   }
 
-  function resetForm(newValues = {}, newErrors = {}, newIsValid = false) {
+  function resetForm(
+    newValues = {
+      username: "",
+      email: "",
+      password: "",
+    },
+    newErrors = {},
+    newIsValid = false
+  ) {
     setValues(newValues);
     setErrors(newErrors);
     setIsValid(newIsValid);

@@ -14,7 +14,7 @@ function SignUpModal({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleSignUp( values.email, values.password, values.username);
+    handleSignUp(values.email, values.password, values.username);
     resetForm();
   };
 
@@ -34,6 +34,7 @@ function SignUpModal({
           className="modal__input"
           id="email"
           type="email"
+          autoComplete="email"
           placeholder="Email"
           onChange={handleChange}
           value={values.email}
@@ -46,6 +47,7 @@ function SignUpModal({
         <input
           className="modal__input"
           name="password"
+          autoComplete="current-password"
           id="password"
           type="password"
           placeholder="Password"
@@ -64,6 +66,7 @@ function SignUpModal({
           className="modal__input"
           id="username"
           type="text"
+          autoComplete="username"
           placeholder="Username"
           onChange={handleChange}
           value={values.username}
