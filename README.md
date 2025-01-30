@@ -1,10 +1,10 @@
-# movie-maze-backend
+# movie-maze-frontend
 
 ## Overview  
-This repository contains the frontend for the Movie Maze website, the user-facing interface of the application. It allows users to explore movies, sort and filter by genre or year, read synopses, and manage a watchlist. Built with React and modern web development tools, the frontend seamlessly interacts with the backend API to provide a dynamic and engaging user experience.  
+This repository contains the frontend for the Movie Maze website, the user-facing interface of the application. It allows users to explore movies by title, read synopses, and manage a watchlist. Built with React and modern web development tools, the frontend seamlessly interacts with the backend API to provide a dynamic and engaging user experience.  
 
 ## Features  
-- Browse and sort movies by genre, year, or other criteria.
+- Browse movies by title.
 - View detailed movie synopses. 
 - Add or remove movies from a personalized watchlist. 
 - Secure user authentication and session management. 
@@ -32,4 +32,3 @@ This project depends on the backend API for user authentication, movie data, and
 1. Clone the repository:  
    git clone https://github.com/telasjareynolds/movie-maze-frontend/  
    cd movie-maze-frontend
-
